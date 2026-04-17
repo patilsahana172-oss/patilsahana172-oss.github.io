@@ -1,1 +1,25 @@
-<h1> sahana </h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple AR</title>
+
+  <!-- MindAR -->
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-face.prod.js"></script>
+
+  <!-- A-Frame -->
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+</head>
+
+<body>
+  <a-scene mindar-face embedded>
+    
+    <a-camera active="false"></a-camera>
+
+    <!-- This attaches to your face -->
+    <a-entity mindar-face-target="anchorIndex: 1">
+      <a-box color="red" depth="0.1" height="0.1" width="0.1"></a-box>
+    </a-entity>
+
+  </a-scene>
+</body>
+</html>
