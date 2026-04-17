@@ -1,25 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Simple AR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple MindAR</title>
+
+  <!-- A-Frame (load first) -->
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
 
   <!-- MindAR -->
-  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-face.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-face-aframe.prod.js"></script>
 
-  <!-- A-Frame -->
-  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
 </head>
 
 <body>
-  <a-scene mindar-face embedded>
-    
-    <a-camera active="false"></a-camera>
 
-    <!-- This attaches to your face -->
-    <a-entity mindar-face-target="anchorIndex: 1">
-      <a-box color="red" depth="0.1" height="0.1" width="0.1"></a-box>
-    </a-entity>
+<a-scene
+  mindar-face="autoStart: true"
+  embedded
+  vr-mode-ui="enabled: false"
+  device-orientation-permission-ui="enabled: true"
+>
 
-  </a-scene>
+  <a-camera active="false"></a-camera>
+
+  <!-- Attach to face -->
+  <a-entity mindar-face-target="anchorIndex: 1">
+    <a-box 
+      position="0 0 0" 
+      depth="0.3" 
+      height="0.3" 
+      width="0.3" 
+      color="red">
+    </a-box>
+  </a-entity>
+
+</a-scene>
+
 </body>
 </html>
