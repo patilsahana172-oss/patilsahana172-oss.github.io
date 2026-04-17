@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simple MindAR</title>
+  <title>AR Button Image</title>
 
-  <!-- A-Frame (load first) -->
+  <!-- A-Frame -->
   <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
 
   <!-- MindAR -->
@@ -15,10 +15,27 @@
       margin: 0;
       overflow: hidden;
     }
+
+    /* Button styling */
+    #showBtn {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 12px 20px;
+      background: black;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      z-index: 10;
+    }
   </style>
 </head>
 
 <body>
+
+<button id="showBtn">Show Image</button>
 
 <a-scene
   mindar-face="autoStart: true"
@@ -29,18 +46,23 @@
 
   <a-camera active="false"></a-camera>
 
-  <!-- Attach to face -->
-  <a-entity mindar-face-target="anchorIndex: 1">
-    <a-box 
-      position="0 0 0" 
-      depth="0.3" 
-      height="0.3" 
-      width="0.3" 
-      color="red">
-    </a-box>
+  <!-- Image in center -->
+  <a-entity id="imageBox" visible="false" position="0 0 -1">
+    <a-plane src="https://cdn.pixabay.com/photo/2023/01/01/12/00/flower-7692454_1280.jpg"
+             width="1.5" height="1.5">
+    </a-plane>
   </a-entity>
 
 </a-scene>
+
+<script>
+  const btn = document.getElementById("showBtn");
+  const image = document.getElementById("imageBox");
+
+  btn.addEventListener("click", () => {
+    image.setAttribute("visible", "true");
+  });
+</script>
 
 </body>
 </html>
