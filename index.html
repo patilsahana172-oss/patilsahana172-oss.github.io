@@ -1,67 +1,113 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AR Button Image</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding Invitation AR</title>
 
-  <!-- A-Frame -->
-  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+<!-- A-Frame ONLY -->
+<script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
 
-  <!-- MindAR -->
-  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-face-aframe.prod.js"></script>
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
 
-  <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-    }
+/* Show button */
+#showBtn {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 14px 24px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  z-index: 10;
+}
 
-    /* Button styling */
-    #showBtn {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 12px 20px;
-      background: black;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      z-index: 10;
-    }
-  </style>
+/* Invitation Overlay */
+#invitation {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+}
+
+/* Invitation card */
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  max-width: 350px;
+  text-align: center;
+}
+
+.card h1 {
+  color: #d9534f;
+}
+
+.closeBtn {
+  margin-top: 15px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #d9534f;
+  color: white;
+}
+</style>
 </head>
 
 <body>
 
-<button id="showBtn">Show Image</button>
+<button id="showBtn">Show Invitation</button>
 
+<!-- Invitation -->
+<div id="invitation">
+  <div class="card">
+    <h1>You're Invited!</h1>
+    <p>We are delighted to invite you to the wedding of</p>
+    <h2>John Doe & Jane Smith</h2>
+    <p><b>Saturday, June 25, 2023</b></p>
+    <p>St. Patrick's Church, New York</p>
+    <button class="closeBtn" onclick="closeInvite()">Close</button>
+  </div>
+</div>
+
+<!-- AR Scene (Back Camera) -->
 <a-scene
-  mindar-face="autoStart: true"
   embedded
   vr-mode-ui="enabled: false"
-  device-orientation-permission-ui="enabled: true"
->
+  renderer="logarithmicDepthBuffer: true;"
+  device-orientation-permission-ui="enabled: true">
 
-  <a-camera active="false"></a-camera>
-
-  <!-- Image in center -->
-  <a-entity id="imageBox" visible="false" position="0 0 -1">
-    <a-plane src="https://cdn.pixabay.com/photo/2023/01/01/12/00/flower-7692454_1280.jpg"
-             width="1.5" height="1.5">
-    </a-plane>
-  </a-entity>
+  <!-- Back Camera -->
+  <a-camera
+    camera="facingMode: environment"
+    look-controls="enabled: false"
+    wasd-controls="enabled: false">
+  </a-camera>
 
 </a-scene>
 
 <script>
-  const btn = document.getElementById("showBtn");
-  const image = document.getElementById("imageBox");
+const btn = document.getElementById("showBtn");
+const invite = document.getElementById("invitation");
 
-  btn.addEventListener("click", () => {
-    image.setAttribute("visible", "true");
-  });
+btn.addEventListener("click", () => {
+  invite.style.display = "flex";
+});
+
+function closeInvite() {
+  invite.style.display = "none";
+}
 </script>
 
 </body>
